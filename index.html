@@ -8,6 +8,29 @@
     <meta name="keywords" content="men's luxury PG Hyderabad, premium accommodation Kondapur, best PG for men, luxury paying guest, AC rooms Hyderabad, food included PG">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* Responsive announcement bar: date on second line for mobile */
+        .announcement-bar .mobile-break { display: none; }
+        @media (max-width: 600px) {
+            .announcement-bar {
+                font-size: 0.98rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                text-align: center;
+                white-space: normal;
+                word-break: break-word;
+            }
+            .announcement-bar .mobile-break { display: inline; }
+        }
+        @media (max-width: 600px) {
+            .announcement-bar {
+                font-size: 0.98rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                text-align: center;
+                white-space: normal;
+                word-break: break-word;
+            }
+        }
         /* Announcement Bar Animation */
         .announcement-bar {
             width: 100%;
@@ -1492,7 +1515,7 @@
 <body>
     <!-- Announcement Bar -->
     <div class="announcement-bar">
-        🎉 Grand Opening on <span class="highlight-date">2nd November 2025</span> 🎉
+        🎉 Grand Opening On   🎉<span class="mobile-break"><br></span> 🎉<span class="highlight-date">2nd November 2025</span>🎉
     </div>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
