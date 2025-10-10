@@ -8,6 +8,51 @@
     <meta name="keywords" content="men's luxury PG Hyderabad, premium accommodation Kondapur, best PG for men, luxury paying guest, AC rooms Hyderabad, food included PG">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* Announcement Bar Animation */
+        .announcement-bar {
+            width: 100%;
+            background: linear-gradient(90deg,#ff6b35,#ffd700,#ff6b35 80%);
+            color: #1a1a1a;
+            text-align: center;
+            padding: 0.75rem 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            z-index: 2000;
+            position: relative;
+            overflow: hidden;
+            animation: pulseBar 1.8s infinite alternate;
+        }
+        .announcement-bar .highlight-date {
+            color: #ff6b35;
+            background: #fff3cd;
+            padding: 0.2em 0.7em;
+            border-radius: 1em;
+            box-shadow: 0 1px 4px #ffd70080;
+            font-weight: 900;
+            animation: popDate 1.2s infinite alternate;
+        }
+        .announcement-bar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -60%;
+            width: 60%; height: 100%;
+            background: linear-gradient(120deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.5) 50%,rgba(255,255,255,0.15) 100%);
+            animation: shimmerBar 2.5s infinite;
+        }
+        @keyframes shimmerBar {
+            0% { left: -60%; }
+            100% { left: 110%; }
+        }
+        @keyframes pulseBar {
+            0% { box-shadow: 0 2px 8px #ffd70080; }
+            100% { box-shadow: 0 4px 24px #ff6b3580; }
+        }
+        @keyframes popDate {
+            0% { transform: scale(1); background: #fff3cd; }
+            100% { transform: scale(1.08); background: #ffe066; }
+        }
         :root {
             --primary-gradient: linear-gradient(135deg, #ff6b35, #f7931e);
             --primary-color: #ff6b35;
@@ -1445,6 +1490,10 @@
     </style>
 </head>
 <body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        🎉 Grand Opening on <span class="highlight-date">2nd November 2025</span> 🎉
+    </div>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
