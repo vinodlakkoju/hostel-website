@@ -914,6 +914,54 @@
             letter-spacing: 0.5px;
         }
 
+        .room-card.limited-rooms::before {
+            content: 'LIMITED ROOMS';
+            position: absolute;
+            top: 40px;
+            left: -40px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: 0.5rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(-45deg);
+            z-index: 10;
+            letter-spacing: 0.5px;
+        }
+
+        .room-card.filling-fast::before {
+            content: 'FILLING FAST';
+            position: absolute;
+            top: 40px;
+            left: -40px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: 0.5rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(-45deg);
+            z-index: 10;
+            letter-spacing: 0.5px;
+        }
+
+        .room-card.few-remaining::before {
+            content: 'FEW REMAINING';
+            position: absolute;
+            top: 40px;
+            left: -40px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: 0.5rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(-45deg);
+            z-index: 10;
+            letter-spacing: 0.5px;
+        }
+
         .room-image {
             height: 200px;
             position: relative;
@@ -1571,8 +1619,8 @@
     <section class="stats">
         <div class="stats-container">
             <div class="stat-card loading">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Happy Residents</div>
+                <div class="stat-number">55+</div>
+                <div class="stat-label">Beds Reserved</div>
             </div>
             <div class="stat-card loading">
                 <div class="stat-number">24/7</div>
@@ -1685,7 +1733,7 @@
             </div>
             
             <div class="rooms-grid">
-                <div class="room-card loading">
+                <div class="room-card limited-rooms loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">👑</div>
@@ -1751,7 +1799,7 @@
                     </div>
                 </div>
 
-                <div class="room-card loading">
+                <div class="room-card few-remaining loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
@@ -1773,7 +1821,7 @@
                     </div>
                 </div>
 
-                <div class="room-card loading">
+                <div class="room-card filling-fast loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
