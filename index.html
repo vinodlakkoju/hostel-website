@@ -1568,6 +1568,21 @@
         gtag("js", new Date());
         gtag("config", "G-ZRKKM1SBY7");
     </script>
+    <style>
+        /* Lightbox styles for gallery images */
+        .lightbox { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 3000; }
+        .lightbox[aria-hidden="false"] { display: flex; }
+        .lightbox-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.75); }
+        .lightbox-content { position: relative; max-width: 95%; max-height: 90%; padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: .5rem; z-index: 3001; }
+        .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .lightbox-caption { color: #fff; font-size: 0.95rem; text-align: center; }
+        .lightbox-close { position: absolute; top: -12px; right: -12px; background: var(--primary-color); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.15rem; cursor: pointer; z-index: 3002; }
+        .lightbox-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: #fff; border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 1.25rem; cursor: pointer; z-index: 3002; display: flex; align-items: center; justify-content: center; }
+        .lightbox-prev { left: 8px; }
+        .lightbox-next { right: 8px; }
+        .lightbox-nav-btn:focus, .lightbox-close:focus { outline: 2px solid rgba(255,255,255,0.9); }
+        @media (max-width:600px){ .lightbox-content{ padding:.5rem } .lightbox-close{ width:36px;height:36px } .lightbox-nav-btn{ width:36px;height:36px } }
+    </style>
 </head>
 <body>
     <!-- Announcement Bar -->
@@ -1660,7 +1675,7 @@
                     <div class="image-placeholder">
                         <div class="placeholder-content">
                             <!--<div class="placeholder-icon">🏢</div> -->
-                            <img src="./images/building-view.jpg" alt="Premium Accommodation" style="width:300px; height:300px; object-fit:contain; display:block; margin:10px auto 2rem auto;">
+                            <img src="./images/front-elevation.jpg" alt="Premium Accommodation" style="width:300px; height:300px; object-fit:contain; display:block; margin:10px auto 2rem auto;">
                             <h4>Modern Living Spaces</h4>
                             <p>Professional Environment</p>
                         </div>
@@ -1962,13 +1977,15 @@
             
             <div class="rooms-grid">
                 <div class="room-card loading">
-                    <div class="room-image image-placeholder" style="height: 250px;">
-                        <div class="placeholder-content">
-                            <div class="placeholder-icon">🏢</div>
-                            <h4>Building Exterior</h4>
-                            <p>Modern Architecture</p>
+                        <div class="room-image image-placeholder" style="height: 250px;">
+                            <div class="placeholder-content">
+                                <a href="#" class="gallery-thumb" data-full="./images/front-elevation.jpg" aria-controls="lightbox" aria-haspopup="dialog" style="display:block;">
+                                    <img src="./images/front-elevation.jpg" alt="Zentro Building exterior" style="width:80px; height:80px; object-fit:cover; display:block; margin:0 auto; border-radius:12px;" loading="lazy">
+                                </a>
+                                <h4>Building Exterior</h4>
+                                <p>Modern Architecture</p>
+                            </div>
                         </div>
-                    </div>
                     <div class="room-content">
                         <h3 class="heading-sm">Zentro Building</h3>
                         <p class="justified-text body-base">Our modern building in the prime location of Kondapur, designed with contemporary architecture and premium facilities.</p>
@@ -1978,7 +1995,9 @@
                 <div class="room-card loading">
                     <div class="room-image image-placeholder" style="height: 250px;">
                         <div class="placeholder-content">
-                            <div class="placeholder-icon">🛏️</div>
+                            <a href="#" class="gallery-thumb" data-full="./images/four-bed-room.jpg" data-gallery-images="./images/four-bed-room.jpg,./images/three-bed-room.jpg,./images/two-bed-room.jpg" aria-controls="lightbox" aria-haspopup="dialog" style="display:block;">
+                                <img src="./images/four-bed-room.jpg" alt="Premium 4-bed room interior" style="width:80px; height:80px; object-fit:cover; display:block; margin:0 auto; border-radius:12px;" loading="lazy">
+                            </a>
                             <h4>Premium Rooms</h4>
                             <p>Luxury Interiors</p>
                         </div>
@@ -1992,7 +2011,9 @@
                 <div class="room-card loading">
                     <div class="room-image image-placeholder" style="height: 250px;">
                         <div class="placeholder-content">
-                            <div class="placeholder-icon">🍽️</div>
+                            <a href="#" class="gallery-thumb" data-full="./images/dining-hall.jpg" data-gallery-images="./images/dining-hall.jpg,./images/dining-hall2.jpg" aria-controls="lightbox" aria-haspopup="dialog" style="display:block;">
+                                <img src="./images/dining-hall.jpg" alt="Dining Hall" style="width:80px; height:80px; object-fit:cover; display:block; margin:0 auto; border-radius:12px;" loading="lazy">
+                            </a>
                             <h4>Dining Hall</h4>
                             <p>Spacious & Clean</p>
                         </div>
@@ -2421,6 +2442,105 @@
             setTimeout(animateOnScroll, 100);
             updateActiveNav();
         });
+    </script>
+
+    <!-- Lightbox modal HTML -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="lightbox-overlay" tabindex="-1"></div>
+        <div class="lightbox-content" role="document">
+            <button class="lightbox-close" aria-label="Close image">✕</button>
+            <button class="lightbox-nav-btn lightbox-prev" aria-label="Previous image">‹</button>
+            <img class="lightbox-img" src="" alt="" />
+            <button class="lightbox-nav-btn lightbox-next" aria-label="Next image">›</button>
+            <div class="lightbox-caption" aria-live="polite"></div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            var currentGallery = null;
+            var currentIndex = 0;
+
+            function updateLightbox(){
+                var lb = document.getElementById('lightbox');
+                var img = lb.querySelector('.lightbox-img');
+                var cap = lb.querySelector('.lightbox-caption');
+                if(!currentGallery || currentGallery.length === 0) return;
+                var item = currentGallery[currentIndex];
+                img.src = item.src;
+                img.alt = item.alt || '';
+                cap.textContent = (currentGallery.length > 1) ? ( (currentIndex + 1) + ' / ' + currentGallery.length + ' — ' + (item.alt || '') ) : (item.alt || '');
+                // show/hide nav based on count
+                var prev = lb.querySelector('.lightbox-prev');
+                var next = lb.querySelector('.lightbox-next');
+                if(currentGallery.length > 1){ prev.style.display = 'flex'; next.style.display = 'flex'; } else { prev.style.display = 'none'; next.style.display = 'none'; }
+            }
+
+            function openLightboxGallery(gallery, startIndex){
+                currentGallery = gallery || [];
+                currentIndex = (typeof startIndex === 'number') ? startIndex : 0;
+                updateLightbox();
+                var lb = document.getElementById('lightbox');
+                lb.setAttribute('aria-hidden','false');
+                lb.style.display = 'flex';
+                lb.querySelector('.lightbox-close').focus();
+            }
+
+            function closeLightbox(){
+                var lb = document.getElementById('lightbox');
+                var img = lb.querySelector('.lightbox-img');
+                lb.setAttribute('aria-hidden','true');
+                lb.style.display = 'none';
+                img.src = '';
+                currentGallery = null;
+                currentIndex = 0;
+            }
+
+            function parseGalleryString(str){
+                if(!str) return [];
+                return str.split(',').map(function(s){ return s.trim(); }).filter(Boolean).map(function(src){ return { src: src, alt: src.split('/').pop().replace(/[-_]/g,' ').replace(/\.[^.]+$/, '') }; });
+            }
+
+            document.addEventListener('click', function(e){
+                var t = e.target;
+                var thumb = t.closest && t.closest('.gallery-thumb');
+                if(thumb){
+                    e.preventDefault();
+                    var galleryStr = thumb.getAttribute('data-gallery-images');
+                    if(galleryStr){
+                        var gallerySrcs = parseGalleryString(galleryStr);
+                        // find start index from data-full if present
+                        var startSrc = thumb.getAttribute('data-full') || gallerySrcs[0] && gallerySrcs[0].src;
+                        var startIndex = 0;
+                        if(startSrc){
+                            for(var i=0;i<gallerySrcs.length;i++) if(gallerySrcs[i].src === startSrc){ startIndex = i; break; }
+                        }
+                        openLightboxGallery(gallerySrcs, startIndex);
+                    } else {
+                        var src = thumb.getAttribute('data-full');
+                        var alt = thumb.querySelector('img') ? thumb.querySelector('img').alt : '';
+                        openLightboxGallery([ { src: src, alt: alt } ], 0);
+                    }
+                }
+
+                if(t.classList && t.classList.contains('lightbox-close')){ closeLightbox(); }
+                if(t.classList && t.classList.contains('lightbox-overlay')){ closeLightbox(); }
+                if(t.classList && t.classList.contains('lightbox-prev')){
+                    if(currentGallery && currentGallery.length>0){ currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length; updateLightbox(); }
+                }
+                if(t.classList && t.classList.contains('lightbox-next')){
+                    if(currentGallery && currentGallery.length>0){ currentIndex = (currentIndex + 1) % currentGallery.length; updateLightbox(); }
+                }
+            });
+
+            document.addEventListener('keydown', function(e){
+                var lb = document.getElementById('lightbox');
+                if(!lb || lb.getAttribute('aria-hidden') === 'true') return;
+                if(e.key === 'Escape'){ closeLightbox(); }
+                if(e.key === 'ArrowLeft'){ if(currentGallery && currentGallery.length>0){ currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length; updateLightbox(); } }
+                if(e.key === 'ArrowRight'){ if(currentGallery && currentGallery.length>0){ currentIndex = (currentIndex + 1) % currentGallery.length; updateLightbox(); } }
+            });
+        })();
     </script>
 </body>
 </html>
