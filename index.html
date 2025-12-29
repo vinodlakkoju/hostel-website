@@ -396,6 +396,67 @@
             animation: slideInLeft 1s ease-out;
         }
 
+        /* Responsive video wrapper used for hero video embed */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 12px;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Styles for lazy YouTube thumbnail button */
+        .youtube-lite {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            cursor: pointer;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .youtube-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .youtube-play {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 2rem;
+            line-height: 1;
+            width: 3.25rem;
+            height: 3.25rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+        }
+
         @keyframes slideInLeft {
             0% { opacity: 0; transform: translateX(-50px); }
             100% { opacity: 1; transform: translateX(0); }
@@ -1631,7 +1692,13 @@
             <div class="hero-image">
                 <div class="hero-card">
                     <!-- <div class="hero-card-icon">🏠</div> -->
-                    <img src="./images/premium-room.jpg" alt="Premium Accommodation" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="video-wrapper" aria-hidden="false">
+                        <!-- Lazy-load YouTube: show thumbnail with play button, inject iframe on click to avoid player config errors -->
+                        <button class="youtube-lite" data-video-id="YVo43ItjN3g" aria-label="Play tour video: Premium Accommodation" title="Play video">
+                            <img class="youtube-thumb" src="https://img.youtube.com/vi/YVo43ItjN3g/hqdefault.jpg" alt="Premium Accommodation video thumbnail">
+                            <div class="youtube-play">▶</div>
+                        </button>
+                    </div>
                     <h3>Premium Accommodation</h3>
                     <p>Luxury living spaces with modern amenities and professional environment</p>
                 </div>
@@ -2530,6 +2597,87 @@
                 }
                 if(t.classList && t.classList.contains('lightbox-next')){
                     if(currentGallery && currentGallery.length>0){ currentIndex = (currentIndex + 1) % currentGallery.length; updateLightbox(); }
+                }
+            });
+
+            // Helper to inject a YouTube-nocookie iframe into a wrapper element
+            function injectYouTubeIframe(wrapperEl, videoId, opts) {
+                opts = opts || {};
+                if(!wrapperEl || !videoId) return false;
+                var params = [];
+                params.push('rel=0');
+                params.push('modestbranding=1');
+                params.push('playsinline=1');
+                // enable JS API and include origin to satisfy player configuration in some environments
+                params.push('enablejsapi=1');
+                try {
+                    var proto = (window.location && window.location.protocol) ? window.location.protocol : '';
+                    if (proto.indexOf('http') === 0) {
+                        var originVal = encodeURIComponent(window.location.origin || (location.protocol + '//' + location.host));
+                        params.push('origin=' + originVal);
+                    }
+                } catch (e) {
+                    // ignore if origin can't be determined
+                }
+                if(opts.autoplay) params.push('autoplay=1');
+                if(opts.muted) params.push('mute=1');
+                if(opts.loop) params.push('loop=1');
+                var embedUrl = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(videoId) + '?' + params.join('&');
+                // When looping a single video, YouTube requires the playlist parameter to be set to the same video id
+                if(opts.loop) {
+                    embedUrl += '&playlist=' + encodeURIComponent(videoId);
+                }
+
+                try {
+                    var iframe = document.createElement('iframe');
+                    iframe.setAttribute('src', embedUrl);
+                    iframe.setAttribute('title', opts.title || 'YouTube video');
+                    iframe.setAttribute('frameborder', '0');
+                    // include autoplay, encrypted-media and fullscreen permissions
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+                    iframe.setAttribute('allowfullscreen', '');
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    // Replace wrapper contents safely
+                    wrapperEl.innerHTML = '';
+                    wrapperEl.appendChild(iframe);
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            // Try to autoplay muted on page load (some browsers allow autoplay if muted).
+            document.addEventListener('DOMContentLoaded', function(){
+                try {
+                    var btn = document.querySelector('.youtube-lite');
+                    if(btn) {
+                        var videoId = btn.getAttribute('data-video-id');
+                        var wrapper = btn.parentElement;
+                        // Attempt to inject muted autoplay iframe
+                        var injected = injectYouTubeIframe(wrapper, videoId, { autoplay: true, muted: true, loop: true, title: btn.getAttribute('aria-label') });
+                        if(!injected) {
+                            // Keep thumbnail and let user click; nothing else to do.
+                        }
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            });
+
+            // Lazy-load YouTube iframe on click for elements with .youtube-lite (keeps fallback)
+            document.addEventListener('click', function(evt){
+                var btn = evt.target.closest && evt.target.closest('.youtube-lite');
+                if(!btn) return;
+                evt.preventDefault();
+                var videoId = btn.getAttribute('data-video-id');
+                if(!videoId) return;
+
+                var wrapper = btn.parentElement;
+                var injected = injectYouTubeIframe(wrapper, videoId, { autoplay: true, muted: true, loop: true, title: btn.getAttribute('aria-label') });
+                if(!injected) {
+                    var fallbackUrl = 'https://youtu.be/' + encodeURIComponent(videoId);
+                    window.open(fallbackUrl, '_blank');
                 }
             });
 
