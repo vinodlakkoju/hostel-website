@@ -1742,8 +1742,65 @@
                     <div class="image-placeholder">
                         <div class="placeholder-content">
                             <!--<div class="placeholder-icon">🏢</div> -->
-                            <img src="./images/front-elevation.jpg" alt="Premium Accommodation" style="width:300px; height:300px; object-fit:contain; display:block; margin:10px auto 2rem auto;">
+                            <div id="aboutSlideshow" style="width:600px; height:300px; margin:10px auto 2rem auto; position:relative; border-radius:12px; overflow:hidden; background:#f5f5f5; display:flex; align-items:center; justify-content:center;">
+                                <!-- Slides will be injected by JS: images from images/slides folder -->
+                            </div>
                             <h4>Modern Living Spaces</h4>
+                            <script>
+                                (function(){
+                                    var slideFiles = [
+                                        "./images/slides/RAJ03606-min.JPG",
+                                        "./images/slides/RAJ03608-min.JPG",
+                                        "./images/slides/RAJ03610-min.JPG",
+                                        "./images/slides/RAJ03612-min.JPG",
+                                        "./images/slides/RAJ03615-min.JPG",
+                                        "./images/slides/RAJ03616-min.JPG",
+                                        "./images/slides/RAJ03617-min.JPG",
+                                        "./images/slides/RAJ03619-min.JPG",
+                                        "./images/slides/RAJ03627-min.JPG",
+                                        "./images/slides/RAJ03629-min.JPG",
+                                        "./images/slides/RAJ03630-min.JPG",
+                                        "./images/slides/RAJ03631-min.JPG",
+                                        "./images/slides/RAJ03632-min.JPG",
+                                        "./images/slides/RAJ03633-min.JPG",
+                                        "./images/slides/RAJ03635-min.JPG",
+                                        "./images/slides/RAJ03639-min.JPG",
+                                        "./images/slides/RAJ03641-min.JPG",
+                                        "./images/slides/RAJ03642-min.JPG"
+                                    ];
+
+                                    var container = document.getElementById('aboutSlideshow');
+                                    if(!container) return;
+
+                                    // Preload images and create elements
+                                    slideFiles.forEach(function(src, idx){
+                                        var img = document.createElement('img');
+                                        img.src = src;
+                                        img.alt = 'Slide ' + (idx+1);
+                                        img.style.position = 'absolute';
+                                        img.style.top = '0';
+                                        img.style.left = '0';
+                                        img.style.width = '100%';
+                                        img.style.height = '100%';
+                                        img.style.objectFit = 'cover';
+                                        img.style.opacity = (idx === 0) ? '1' : '0';
+                                        img.style.transition = 'opacity 0.6s ease';
+                                        img.loading = 'lazy';
+                                        container.appendChild(img);
+                                    });
+
+                                    var imgs = container.querySelectorAll('img');
+                                    if(imgs.length <= 1) return; // nothing to rotate
+
+                                    var current = 0;
+                                    setInterval(function(){
+                                        var next = (current + 1) % imgs.length;
+                                        imgs[current].style.opacity = '0';
+                                        imgs[next].style.opacity = '1';
+                                        current = next;
+                                    }, 2000); // 2000ms = 2 seconds
+                                })();
+                            </script>
                             <p>Professional Environment</p>
                         </div>
                     </div>
