@@ -959,6 +959,21 @@
             box-shadow: 0 25px 50px rgba(255, 107, 53, 0.15);
         }
 
+            .room-card.rooms-full::before {
+            content: 'ROOMS FULL';
+            position: absolute;
+            top: 40px;
+            left: -40px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: 0.5rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(-45deg);
+            z-index: 10;
+            letter-spacing: 0.5px;
+        }
         .room-card.popular::before {
             content: 'MOST POPULAR';
             position: absolute;
@@ -1646,10 +1661,10 @@
     </style>
 </head>
 <body>
-    <!-- Announcement Bar -->
+    <!-- Announcement Bar 
     <div class="announcement-bar">
         🎉 Grand Opening Offer! 🎉<span class="mobile-break"><br></span> 🎉<span class="highlight-date">Get up to 20% off on Fee*</span>🎉
-    </div>
+    </div> -->
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -1742,7 +1757,7 @@
                     <div class="image-placeholder">
                         <div class="placeholder-content">
                             <!--<div class="placeholder-icon">🏢</div> -->
-                            <div id="aboutSlideshow" style="width:600px; height:300px; margin:10px auto 2rem auto; position:relative; border-radius:12px; overflow:hidden; background:#f5f5f5; display:flex; align-items:center; justify-content:center;">
+                            <div id="aboutSlideshow" style="width:375px; height:300px; margin:10px auto 2rem auto; position:relative; border-radius:12px; overflow:hidden; background:#f5f5f5; display:flex; align-items:center; justify-content:center;">
                                 <!-- Slides will be injected by JS: images from images/slides folder -->
                             </div>
                             <h4>Modern Living Spaces</h4>
@@ -1881,7 +1896,7 @@
             </div>
             
             <div class="rooms-grid">
-                <div class="room-card limited-rooms loading">
+                <div class="room-card rooms-full loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">👑</div>
@@ -1903,7 +1918,7 @@
                     </div>
                 </div>
 
-                <div class="room-card loading">
+                <div class="room-card rooms-full loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
@@ -2002,7 +2017,7 @@
                 <p class="body-lg">Transparent pricing for every room option</p>
             </div>
             <div class="rooms-grid">
-                <div class="room-card loading">
+                <div class="room-card rooms-full loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">👑</div>
@@ -2013,13 +2028,12 @@
                         <h3>Luxury Single Room</h3>
                         <p class="body-base">Ultimate privacy and luxury for executives.</p>
                         <div style="font-size:1.5rem;font-weight:700;color:var(--primary-color);margin-top:1rem;">
-                            <span style="text-decoration: line-through; color: var(--gray-500);">₹24,000</span>
-                            <span style="margin-left: 10px; color: var(--primary-color);">₹19,200</span>
+                            <span style="margin-left: 10px; color: var(--primary-color);">₹24,000</span>
                         </div>
-                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Discounted price valid for the first two months only.</p>
+                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Price includes food and all amenities</p>
                     </div>
                 </div>
-                <div class="room-card loading">
+                <div class="room-card rooms-full loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
@@ -2030,13 +2044,12 @@
                         <h3>Premium 2 Sharing</h3>
                         <p class="body-base">Maximum privacy and comfort with just one roommate.</p>
                         <div style="font-size:1.5rem;font-weight:700;color:var(--primary-color);margin-top:1rem;">
-                            <span style="text-decoration: line-through; color: var(--gray-500);">₹14,500</span>
-                            <span style="margin-left: 10px; color: var(--primary-color);">₹12,325</span>
+                            <span style="margin-left: 10px; color: var(--primary-color);">₹14,500</span>
                         </div>
-                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Discounted price valid for the first two months only.</p>
+                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Price includes food and all amenities.</p>
                     </div>
                 </div>
-                <div class="room-card popular loading">
+                <div class="room-card few-remaining loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
@@ -2047,13 +2060,12 @@
                         <h3>Premium 3 Sharing</h3>
                         <p class="body-base">More privacy with fewer roommates.</p>
                         <div style="font-size:1.5rem;font-weight:700;color:var(--primary-color);margin-top:1rem;">
-                            <span style="text-decoration: line-through; color: var(--gray-500);">₹12,500</span>
-                            <span style="margin-left: 10px; color: var(--primary-color);">₹10,625</span>
+                            <span style="margin-left: 10px; color: var(--primary-color);">₹12,500</span>
                         </div>
-                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Discounted price valid for the first two months only.</p>
+                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Price includes food and all amenities.</p>
                     </div>
                 </div>
-                <div class="room-card loading">
+                <div class="room-card few-remaining loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
@@ -2064,13 +2076,12 @@
                         <h3>Premium 4 Sharing</h3>
                         <p class="body-base">Spacious and comfortable for great company.</p>
                         <div style="font-size:1.5rem;font-weight:700;color:var(--primary-color);margin-top:1rem;">
-                            <span style="text-decoration: line-through; color: var(--gray-500);">₹11,000</span>
-                            <span style="margin-left: 10px; color: var(--primary-color);">₹9,900</span>
+                            <span style="margin-left: 10px; color: var(--primary-color);">₹11,000</span>
                         </div>
-                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Discounted price valid for the first two months only.</p>
+                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Price includes food and all amenities.</p>
                     </div>
                 </div>
-                <div class="room-card loading">
+                <div class="room-card filling-fast loading">
                     <div class="room-image image-placeholder">
                         <div class="placeholder-content">
                             <div class="placeholder-icon">🛏️</div>
@@ -2081,10 +2092,9 @@
                         <h3>Budget 4 Sharing</h3>
                         <p class="body-base">Affordable option with all essential amenities except AC.</p>
                         <div style="font-size:1.5rem;font-weight:700;color:var(--primary-color);margin-top:1rem;">
-                            <span style="text-decoration: line-through; color: var(--gray-500);">₹9,500</span>
-                            <span style="margin-left: 10px; color: var(--primary-color);">₹8,550</span>
+                            <span style="margin-left: 10px; color: var(--primary-color);">₹9,500</span>
                         </div>
-                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Discounted price valid for the first two months only.</p>
+                        <p style="font-size:0.9rem;color:var(--gray-600);margin-top:0.5rem;">*Price includes food and all amenities.</p>
                     </div>
                 </div>
             </div>
